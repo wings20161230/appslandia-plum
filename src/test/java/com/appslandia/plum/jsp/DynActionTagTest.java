@@ -1,0 +1,115 @@
+package com.appslandia.plum.jsp;
+
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import com.appslandia.plum.base.ActionContextTestBase;
+import com.appslandia.plum.base.ActionParser;
+import com.appslandia.plum.base.GET;
+import com.appslandia.plum.base.Path;
+import com.appslandia.plum.base.PathParams;
+import com.appslandia.plum.base.ServletUtils;
+import com.appslandia.plum.mocks.MockHttpServletRequest;
+import com.appslandia.plum.mocks.MockHttpServletResponse;
+import com.appslandia.plum.mocks.MockJspContext;
+import com.appslandia.plum.mocks.MockWebContext;
+
+public class DynActionTagTest extends ActionContextTestBase {
+
+	MockWebContext mockWebContext;
+	MockHttpServletRequest request;
+	MockHttpServletResponse response;
+
+	DynActionTag tag;
+
+	@Before
+	public void initialize() {
+		mockWebContext = new MockWebContext();
+		mockWebContext.register(TestController.class);
+		mockWebContext.getMockServletContext().setAttribute(ServletUtils.CONTEXT_ATTRIBUTE_ACTION_PARSER, mockWebContext.getObject(ActionParser.class));
+
+		request = mockWebContext.createMockHttpServletRequest();
+		request.setRequestURI("/testController/index.html");
+		response = mockWebContext.createMockHttpServletResponse();
+
+		tag = new DynActionTag();
+		tag.setJspContext(new MockJspContext(request, response));
+	}
+
+	@Test
+	public void test_actionNoParams() {
+		initActionContext(request, mockWebContext);
+
+		tag.setAction("actionNoParams");
+		tag.setController("testController");
+
+		try {
+			tag.doTag();
+			String html = tag.getPageContext().getOut().toString();
+
+			Assert.assertTrue(html.contains("/testController/actionNoParams.html"));
+
+		} catch (Exception ex) {
+			Assert.fail(ex.getMessage());
+		}
+	}
+
+	@Test
+	public void test_actionPathParams() {
+		initActionContext(request, mockWebContext);
+
+		tag.setAction("actionPathParams");
+		tag.setController("testController");
+
+		try {
+			tag.setDynamicAttribute(null, "p1", "param1");
+			tag.setDynamicAttribute(null, "p2", "param2");
+
+			tag.doTag();
+			String html = tag.getPageContext().getOut().toString();
+
+			Assert.assertTrue(html.contains("/testController/actionPathParams/param1.html"));
+			Assert.assertTrue(html.contains("?p2=param2"));
+
+		} catch (Exception ex) {
+			Assert.fail(ex.getMessage());
+		}
+	}
+
+	@Test
+	public void test_actionNoParams_lang() {
+		initActionContext(request, mockWebContext);
+
+		tag.setAction("actionNoParams");
+		tag.setController("testController");
+		tag.setLanguage("en");
+
+		try {
+			tag.doTag();
+			String html = tag.getPageContext().getOut().toString();
+
+			Assert.assertTrue(html.contains("/en/testController/actionNoParams.html"));
+
+		} catch (Exception ex) {
+			Assert.fail(ex.getMessage());
+		}
+	}
+
+	@Path("testController")
+	private static class TestController {
+
+		@GET
+		public void index() {
+		}
+
+		@GET
+		public void actionNoParams() {
+		}
+
+		@GET
+		@PathParams("/{p1}")
+		public void actionPathParams() {
+		}
+	}
+}

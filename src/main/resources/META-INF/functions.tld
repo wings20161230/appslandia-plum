@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+	version="2.1">
+
+	<description>JSTL Functions</description>
+	<tlib-version>1.0</tlib-version>
+	<short-name>functions</short-name>
+	<uri>http://www.appslandia.com/jstl/functions</uri>
+
+	<function>
+		<description>out</description>
+		<name>out</name>
+		<function-class>com.appslandia.plum.jsp.Functions</function-class>
+		<function-signature>java.lang.String out(boolean, java.lang.Object, java.lang.Object)</function-signature>
+	</function>
+
+	<function>
+		<description>hidden</description>
+		<name>hidden</name>
+		<function-class>com.appslandia.plum.jsp.Functions</function-class>
+		<function-signature>java.lang.String hidden(boolean)</function-signature>
+	</function>
+
+	<function>
+		<description>disabled</description>
+		<name>disabled</name>
+		<function-class>com.appslandia.plum.jsp.Functions</function-class>
+		<function-signature>java.lang.String disabled(boolean)</function-signature>
+	</function>
+
+	<function>
+		<description>readonly</description>
+		<name>readonly</name>
+		<function-class>com.appslandia.plum.jsp.Functions</function-class>
+		<function-signature>java.lang.String readonly(boolean)</function-signature>
+	</function>
+
+	<function>
+		<description>required</description>
+		<name>required</name>
+		<function-class>com.appslandia.plum.jsp.Functions</function-class>
+		<function-signature>java.lang.String required(boolean)</function-signature>
+	</function>
+
+	<function>
+		<description>checked</description>
+		<name>checked</name>
+		<function-class>com.appslandia.plum.jsp.Functions</function-class>
+		<function-signature>java.lang.String checked(boolean)</function-signature>
+	</function>
+
+	<function>
+		<description>selected</description>
+		<name>selected</name>
+		<function-class>com.appslandia.plum.jsp.Functions</function-class>
+		<function-signature>java.lang.String selected(boolean)</function-signature>
+	</function>
+
+	<function>
+		<description>sublast</description>
+		<name>sublast</name>
+		<function-class>com.appslandia.plum.jsp.Functions</function-class>
+		<function-signature>java.lang.String sublast(java.lang.String, int)</function-signature>
+	</function>
+
+	<function>
+		<description>subfirst</description>
+		<name>subfirst</name>
+		<function-class>com.appslandia.plum.jsp.Functions</function-class>
+		<function-signature>java.lang.String subfirst(java.lang.String, int)</function-signature>
+	</function>
+
+	<function>
+		<description>trunc</description>
+		<name>trunc</name>
+		<function-class>com.appslandia.plum.jsp.Functions</function-class>
+		<function-signature>java.lang.String trunc(java.lang.String, int)</function-signature>
+	</function>
+
+</taglib>
